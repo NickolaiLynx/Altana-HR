@@ -5,7 +5,8 @@
 
   export default defineConfig({
     plugins: [react()],
-    base: '/Altana-HR/'
+    base: '/Altana-HR/',
+})
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
       alias: {
