@@ -1,8 +1,13 @@
+{
+  "homepage": "https://nickolailynx.github.io/Altana-HR/",
+  "scripts": {
+    "build": "react-scripts build"
+  }
+}
 
   {
       "name": "Алтана-сайт",
       "version": "0.1.0",
-      "homepage": "https://nickolailynx.github.io/Altana-HR/",
       "private": true,
       "dependencies": {
           "@radix-ui/react-accordion": "*",
