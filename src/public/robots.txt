@@ -1,0 +1,12 @@
+# robots.txt для Алтана
+# https://www.robotstxt.org/
+
+User-agent: *
+Allow: /
+
+# Запрет индексации служебных страниц
+Disallow: /#/brief
+Disallow: /#/privacy
+
+# Sitemap (обновить URL после деплоя на реальный домен)
+Sitemap: https://yourdomain.com/sitemap.xml
