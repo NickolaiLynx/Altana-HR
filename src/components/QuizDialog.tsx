@@ -296,20 +296,6 @@ export function QuizDialog({
                   </div>
                 </div>
               </label>
-
-              <label className="flex items-start gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:border-[#D32F2F] transition-colors">
-                <RadioGroupItem
-                  value="exploring"
-                  id="exploring"
-                  className="mt-1"
-                />
-                <div className="flex-1">
-                  <div className="text-gray-900 mb-1">
-                    Пока изучаю — хочу консультацию и полезные
-                    материалы
-                  </div>
-                </div>
-              </label>
             </div>
           </RadioGroup>
         </div>
@@ -1086,75 +1072,83 @@ export function QuizDialog({
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="quiz-name">Ваше имя *</Label>
-            <Input
-              id="quiz-name"
-              required
-              value={answers.name || ""}
-              onChange={(e) =>
-                setAnswers({ ...answers, name: e.target.value })
-              }
-              placeholder="Иван Иванов"
-            />
+          {/* Grid с 2 колонками для инпутов */}
+          <div className="grid grid-cols-2 gap-4">
+            {/* Левый столбец - обязательные поля */}
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="quiz-name">Ваше имя *</Label>
+                <Input
+                  id="quiz-name"
+                  required
+                  value={answers.name || ""}
+                  onChange={(e) =>
+                    setAnswers({ ...answers, name: e.target.value })
+                  }
+                  placeholder="Иван Иванов"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="quiz-phone">
+                  Телефон/WhatsApp *
+                </Label>
+                <Input
+                  id="quiz-phone"
+                  type="tel"
+                  required
+                  value={answers.phone || ""}
+                  onChange={(e) =>
+                    setAnswers({
+                      ...answers,
+                      phone: e.target.value,
+                    })
+                  }
+                  placeholder="+7 (999) 123-45-67"
+                />
+              </div>
+            </div>
+
+            {/* Правый столбец - необязательные поля */}
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="quiz-email">
+                  E-mail{" "}
+                  {answers.branch !== "exploring" && "(необязательно)"}
+                </Label>
+                <Input
+                  id="quiz-email"
+                  type="email"
+                  required={answers.branch === "exploring"}
+                  value={answers.email || ""}
+                  onChange={(e) =>
+                    setAnswers({
+                      ...answers,
+                      email: e.target.value,
+                    })
+                  }
+                  placeholder="email@company.ru"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="quiz-company">Компания (необязательно)</Label>
+                <Input
+                  id="quiz-company"
+                  value={answers.company || ""}
+                  onChange={(e) =>
+                    setAnswers({
+                      ...answers,
+                      company: e.target.value,
+                    })
+                  }
+                  placeholder="ООО «Компания»"
+                />
+              </div>
+            </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="quiz-company">Компания *</Label>
-            <Input
-              id="quiz-company"
-              required
-              value={answers.company || ""}
-              onChange={(e) =>
-                setAnswers({
-                  ...answers,
-                  company: e.target.value,
-                })
-              }
-              placeholder="ООО «Компания»"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="quiz-phone">
-              Телефон/WhatsApp *
-            </Label>
-            <Input
-              id="quiz-phone"
-              type="tel"
-              required
-              value={answers.phone || ""}
-              onChange={(e) =>
-                setAnswers({
-                  ...answers,
-                  phone: e.target.value,
-                })
-              }
-              placeholder="+7 (999) 123-45-67"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="quiz-email">
-              E-mail{" "}
-              {answers.branch !== "exploring" &&
-                "(необязательно)"}
-            </Label>
-            <Input
-              id="quiz-email"
-              type="email"
-              required={answers.branch === "exploring"}
-              value={answers.email || ""}
-              onChange={(e) =>
-                setAnswers({
-                  ...answers,
-                  email: e.target.value,
-                })
-              }
-              placeholder="email@company.ru"
-            />
-          </div>
-
+          {/* Комментарий на всю ширину */}
           {answers.branch !== "exploring" && (
             <div className="space-y-2">
               <Label htmlFor="quiz-comment">
@@ -1237,67 +1231,69 @@ export function QuizDialog({
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[950px] max-h-[90vh] overflow-x-hidden overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-        {!showThankYou && (
-          <div className="bg-gray-900 -mt-2">
-            <div className="px-6 pt-6 pb-4">
-              <DialogHeader className="p-[0px]">
-                <DialogTitle className="text-[18px] font-medium text-white">
-                  Ответьте на 4 вопроса —<br />
-                  получите персональный план и бонус по вашей
-                  задаче
-                </DialogTitle>
-                <DialogDescription className="text-sm text-white/90">
-                  Займет 30–40 секунд. Без сложных расчетов.
-                </DialogDescription>
-              </DialogHeader>
+      <DialogContent className="sm:max-w-[950px] max-h-[85vh] overflow-hidden p-0">
+        <div className="flex flex-col max-h-[85vh]">
+          {!showThankYou && (
+            <div className="bg-gray-900 flex-shrink-0">
+              <div className="px-6 pt-6 pb-4">
+                <DialogHeader className="p-[0px]">
+                  <DialogTitle className="text-[18px] font-medium text-white">
+                    Ответьте на 4 вопроса —<br />
+                    получите персональный план и бонус по вашей
+                    задаче
+                  </DialogTitle>
+                  <DialogDescription className="text-sm text-white/90">
+                    Займет 30–40 секунд. Без сложных расчетов.
+                  </DialogDescription>
+                </DialogHeader>
+              </div>
+              <Progress
+                value={progress}
+                className="h-2 rounded-none"
+              />
             </div>
-            <Progress
-              value={progress}
-              className="h-2 rounded-none"
-            />
-          </div>
-        )}
+          )}
 
-        <div className="py-6 min-h-[300px]">
-          {renderStepContent()}
+          <div className="flex-1 px-6 py-6">
+            {renderStepContent()}
+          </div>
+
+          {!showThankYou && currentStep !== 5 && (
+            <div className="flex items-center justify-between px-6 pt-2 pb-3 border-t border-gray-200 flex-shrink-0">
+              <Button
+                variant="outline"
+                onClick={handlePrev}
+                disabled={currentStep === initialStep}
+                className={currentStep === initialStep ? "invisible" : ""}
+              >
+                <ChevronLeft className="w-4 h-4 mr-2" />
+                Назад
+              </Button>
+
+              <span className="text-sm text-gray-500">
+                Шаг {currentStep} из {getTotalSteps()}
+              </span>
+
+              <Button
+                onClick={handleNext}
+                disabled={!canProceed()}
+                className="bg-[#D32F2F] hover:bg-[#B71C1C]"
+              >
+                Далее
+                <ChevronRight className="w-4 h-4 ml-2" />
+              </Button>
+            </div>
+          )}
+
+          {!showThankYou && (
+            <div className="text-xs text-gray-500 text-center px-6 pb-4 flex-shrink-0">
+              <p>
+                🔒 Конфиденциально: данные не передаем третьим
+                лицам
+              </p>
+            </div>
+          )}
         </div>
-
-        {!showThankYou && currentStep !== 5 && (
-          <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-            <Button
-              variant="outline"
-              onClick={handlePrev}
-              disabled={currentStep === initialStep}
-              className={currentStep === initialStep ? "invisible" : ""}
-            >
-              <ChevronLeft className="w-4 h-4 mr-2" />
-              Назад
-            </Button>
-
-            <span className="text-sm text-gray-500">
-              Шаг {currentStep} из {getTotalSteps()}
-            </span>
-
-            <Button
-              onClick={handleNext}
-              disabled={!canProceed()}
-              className="bg-[#D32F2F] hover:bg-[#B71C1C]"
-            >
-              Далее
-              <ChevronRight className="w-4 h-4 ml-2" />
-            </Button>
-          </div>
-        )}
-
-        {!showThankYou && (
-          <div className="text-xs text-gray-500 text-center pt-2">
-            <p>
-              🔒 Конфиденциально: данные не передаем третьим
-              лицам
-            </p>
-          </div>
-        )}
       </DialogContent>
     </Dialog>
   );
