@@ -3,9 +3,6 @@
   "scripts": {
     "build": "react-scripts build"
   }
-}
-
-  {
       "name": "Алтана-сайт",
       "version": "0.1.0",
       "private": true,
