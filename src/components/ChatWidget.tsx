@@ -258,7 +258,7 @@ export function ChatWidget() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-3 md:right-6 w-16 h-16 bg-[#D32F2F] hover:bg-[#B71C1C] text-white rounded-full shadow-lg flex items-center justify-center z-[100] transition-all duration-300 hover:scale-110 animate-chat-pulse"
+          className="fixed bottom-6 right-3 md:right-6 w-16 h-16 bg-[#D32F2F] hover:bg-[#B71C1C] text-white rounded-full shadow-lg flex items-center justify-center z-[100] transition-all duration-300 hover:scale-110"
           /*className="fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-[max(0.75rem,env(safe-area-inset-right))] md:right-6 w-16 h-16 bg-[#D32F2F] hover:bg-[#B71C1C] text-white rounded-full shadow-lg flex items-center justify-center z-[9999] transition-all duration-300 hover:scale-110 animate-chat-pulse"*/
           aria-label="Открыть чат"
         >
